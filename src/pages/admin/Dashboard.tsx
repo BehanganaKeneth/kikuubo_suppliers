@@ -141,6 +141,15 @@ export function AdminDashboard() {
           </Link>
 
           <Link
+            to="/admin/banners"
+            className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-gray-700 transition"
+          >
+            <Package className="w-12 h-12 text-pink-400 mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Promotional Banners</h3>
+            <p className="text-gray-400">Create and manage banners</p>
+          </Link>
+
+          <Link
             to="/admin/reports"
             className="bg-gray-900 rounded-lg p-6 border border-gray-800 hover:border-gray-700 transition"
           >

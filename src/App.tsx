@@ -13,7 +13,9 @@ import { Account } from './pages/Account';
 import { Orders } from './pages/Orders';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { Notifications } from './pages/Notifications';
 import { AdminDashboard } from './pages/admin/Dashboard';
+import { AdminBanners } from './pages/admin/Banners';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -105,12 +107,28 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRoute>
+                  <Notifications />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/admin"
               element={
                 <AdminRoute>
                   <AdminDashboard />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/admin/banners"
+              element={
+                <AdminRoute>
+                  <AdminBanners />
                 </AdminRoute>
               }
             />

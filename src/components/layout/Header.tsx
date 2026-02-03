@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ShoppingCart, User, Menu, X, LogOut } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, LogOut, Bell } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -32,6 +32,12 @@ export function Header() {
               <ShoppingCart className="w-6 h-6" />
             </Link>
 
+            {user && (
+              <Link to="/notifications" className="hover:text-gray-300 transition">
+                <Bell className="w-6 h-6" />
+              </Link>
+            )}
+
             {user ? (
               <div className="relative group">
                 <button className="hover:text-gray-300 transition flex items-center space-x-2">
@@ -44,6 +50,9 @@ export function Header() {
                   </Link>
                   <Link to="/orders" className="block px-4 py-2 hover:bg-gray-800 transition">
                     My Orders
+                  </Link>
+                  <Link to="/notifications" className="block px-4 py-2 hover:bg-gray-800 transition">
+                    Notifications
                   </Link>
                   {profile?.is_admin && (
                     <Link to="/admin" className="block px-4 py-2 hover:bg-gray-800 transition text-yellow-400">
