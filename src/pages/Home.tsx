@@ -38,7 +38,7 @@ export function Home() {
           <div className="flex items-center justify-center space-x-2 mb-4">
             <Sparkles className="w-8 h-8 text-yellow-400" />
             <h1 className="text-5xl md:text-7xl font-bold tracking-wider">
-              KIKUUBO SUPPLIERS
+              KIKUUBO
             </h1>
             <Sparkles className="w-8 h-8 text-yellow-400" />
           </div>
