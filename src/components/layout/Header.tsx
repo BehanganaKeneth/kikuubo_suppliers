@@ -13,7 +13,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-2">
             <div className="text-2xl font-bold tracking-wider">
-              KIKUUBO
+              KIKUUBO SUPPLIERS
             </div>
             <div className="hidden sm:block text-xs text-gray-400 italic">
               Aesthetic • Elegant • Beauty
