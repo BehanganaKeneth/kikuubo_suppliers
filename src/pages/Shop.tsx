@@ -4,9 +4,17 @@ import { supabase } from '../lib/supabase';
 import { Product, Category } from '../types/database';
 import { Filter, X } from 'lucide-react';
 
+interface Origin {
+  id: string;
+  name: string;
+  slug: string;
+  display_order: number;
+}
+
 export function Shop() {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [origins, setOrigins] = useState<Origin[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -15,24 +23,27 @@ export function Shop() {
   const [sortBy, setSortBy] = useState<'name' | 'price-asc' | 'price-desc'>('name');
 
   useEffect(() => {
-    loadCategories();
+    loadCategoriesAndOrigins();
   }, []);
 
   useEffect(() => {
     loadProducts();
   }, [selectedCategory, selectedOrigin, sortBy]);
 
-  const loadCategories = async () => {
+  const loadCategoriesAndOrigins = async () => {
     try {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('*')
-        .order('name');
+      const [categoriesResult, originsResult] = await Promise.all([
+        supabase.from('categories').select('*').order('name'),
+        supabase.from('product_origins').select('*').order('display_order'),
+      ]);
 
-      if (error) throw error;
-      setCategories(data || []);
+      if (categoriesResult.error) throw categoriesResult.error;
+      if (originsResult.error) throw originsResult.error;
+
+      setCategories(categoriesResult.data || []);
+      setOrigins(originsResult.data || []);
     } catch (error) {
-      console.error('Error loading categories:', error);
+      console.error('Error loading categories and origins:', error);
     }
   };
 
@@ -74,8 +85,6 @@ export function Shop() {
       setLoading(false);
     }
   };
-
-  const origins = [...new Set(products.map(p => p.origin).filter(Boolean))];
 
   return (
     <div className="min-h-screen bg-black">
@@ -157,8 +166,8 @@ export function Shop() {
                   >
                     <option value="">All Origins</option>
                     {origins.map((origin) => (
-                      <option key={origin} value={origin}>
-                        {origin}
+                      <option key={origin.id} value={origin.name}>
+                        {origin.name}
                       </option>
                     ))}
                   </select>
