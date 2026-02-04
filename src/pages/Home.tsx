@@ -19,6 +19,7 @@ export function Home() {
         .select('*')
         .eq('is_featured', true)
         .eq('is_active', true)
+        .in('origin', ['Korea', 'Japan', 'Paris', 'USA', 'UK'])
         .limit(6);
 
       if (error) throw error;
